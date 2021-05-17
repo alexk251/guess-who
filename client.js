@@ -13,10 +13,6 @@ function readyNow() {
     
 }
 
-function randomNumber(min, max){
-    return Math.floor(Math.random() * (1 + max - min) + min);
-}
-
 function displayImages() {
     for (let i = 0; i < people.length; i++) {
         let portrait = $(`<img class="image" src="https://github.com/${people[i].githubUsername}.png?size=250" alt="Profile image of ${people[i].name}"></img>`)
@@ -30,15 +26,20 @@ function displayImages() {
 
 function randomPerson() {
 
+    function randomNumber(min, max){
+        return Math.floor(Math.random() * (1 + max - min) + min);
+    }
+
     $('#prompt').text('');
 
     let justAPerson =  people[randomNumber(0,people.length-1)].name;
+    
 
     let currentRandomPerson = $(`<p>Click On: ${justAPerson}</p>`);
 
     currentRandomPerson.data('rando',justAPerson);
-    $('#prompt').append(currentRandomPerson);
 
+    $('#prompt').append(currentRandomPerson);
     
     
 
@@ -46,13 +47,13 @@ function randomPerson() {
 
 function gameLogic() {
     let selectedImage = $(this).data('portraitName');
-    let findThisPerson = $('#prompt').data('rando');
-    console.log('click');
+    let findThisPerson = $('p').data('rando');
     console.log(findThisPerson)
     console.log(selectedImage);
 
     if (selectedImage === findThisPerson) {
         alert('we have a winner')
+        randomPerson();
     } else {
         alert('try again');
     }
